@@ -41,7 +41,7 @@ func main() {
 	router.Delims("{[{", "}]}")
 	router.LoadHTMLGlob("./templates/*.tmpl")
 
-	router.GET("/index", func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{})
 	})
 
@@ -68,12 +68,9 @@ func main() {
 			c.JSON(http.StatusNotFound, gin.H{"reason": "NOT_FOUND"})
 		}
 
-		var newContact Contact
-		c.Bind(&newContact)
-		contacts[id].FirstName = newContact.FirstName
-		contacts[id].LastName = newContact.LastName
-		contacts[id].Email = newContact.Email
-
+		if err := c.Bind(&contacts[id]); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"reason": err})
+		}
 		c.JSON(http.StatusOK, contacts[id])
 	})
 
