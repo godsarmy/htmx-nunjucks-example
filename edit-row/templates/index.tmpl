@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>edit-row</title>
+
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/nunjucks@3.2.4/browser/nunjucks.js"></script>
+    <!-- htmx example use sweetalert2 to show modal box -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+        tr.htmx-swapping td {
+          opacity: 0;
+          transition: opacity 1s ease-out;
+        }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/examples/edit-row/" class="link-primary">htmx edit row example</a>
+      <p>
+      <div hx-get="/contact"
+           hx-trigger="load"
+           nunjucks-array-template="show-template">
+      </div>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody hx-target="closest tr" hx-swap="outerHTML">
+            {% for contact in data %}
+            <tr>
+              <td>{{ contact.firstName }} {{ contact.lastName }}</td>
+              <td>{{ contact.email }}</td>
+              <td>
+                <button class="btn btn-primary"
+                  hx-get="/contact/{{ contact.id }}"
+                  hx-trigger="edit"
+                  nunjucks-template="edit-template"
+                  onClick="let editing = document.querySelector('.editing')
+                           if(editing) {
+                             Swal.fire({title: 'Already Editing',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Yep, Edit This Row!',
+                                        text:'Hey!  You are already editing a row!  Do you want to cancel that edit and continue?'})
+                             .then((result) => {
+                                  if(result.isConfirmed) {
+                                     htmx.trigger(editing, 'cancel')
+                                     htmx.trigger(this, 'edit')
+                                  }
+                              })
+                           } else {
+                              htmx.trigger(this, 'edit')
+                           }">
+                Edit
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </script>
+
+      <script id="edit-template" type="x-tmpl-nunjucks">
+        <tr hx-trigger="cancel"
+            class="editing"
+            hx-get="/contact/{{ id }}"
+            nunjucks-template="single-contact-template">
+          <td>
+            <input name="firstName" value="{{ firstName }}">
+            <input name="lastName" value="{{ lastName }}">
+          </td>
+          <td><input name="email" value='{{ email }}'></td>
+          <td>
+            <button class="btn btn-secondary"
+                    hx-get="/contact/{{ id }}"
+                    nunjucks-template="single-contact-template">
+              Cancel
+            </button>
+            <button class="btn btn-primary"
+                    hx-put="/contact/{{ id }}"
+                    hx-include="closest tr"
+                    hx-ext="json-enc"
+                    nunjucks-template="single-contact-template">
+              Save
+            </button>
+          </td>
+        </tr>
+      </script>
+
+      <script id="single-contact-template" type="x-tmpl-nunjucks">
+        <tr>
+          <td>{{ firstName }} {{ lastName }}</td>
+          <td>{{ email }}</td>
+          <td>
+            <button class="btn btn-primary"
+              hx-get="/contact/{{ id }}"
+              hx-trigger="edit"
+              nunjucks-template="edit-template"
+              onClick="let editing = document.querySelector('.editing')
+                       if(editing) {
+                         Swal.fire({title: 'Already Editing',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yep, Edit This Row!',
+                                    text:'Hey!  You are already editing a row!  Do you want to cancel that edit and continue?'})
+                         .then((result) => {
+                              if(result.isConfirmed) {
+                                 htmx.trigger(editing, 'cancel')
+                                 htmx.trigger(this, 'edit')
+                              }
+                          })
+                       } else {
+                          htmx.trigger(this, 'edit')
+                       }">
+            Edit
+            </button>
+          </td>
+        </tr>
+      </script>
+    </div>
+  </body>
+
+</html>
