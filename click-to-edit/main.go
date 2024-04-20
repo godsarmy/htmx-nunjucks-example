@@ -50,10 +50,10 @@ func main() {
 		id, err := strconv.Atoi(contact_id)
 
 		if err != nil {
-			c.JSON(http.StatusNotFound, gin.H{"reason": "NOT_FOUND"})
+			c.AbortWithError(http.StatusNotFound, err)
 		}
 		if len(contacts) <= id {
-			c.JSON(http.StatusNotFound, gin.H{"reason": "NOT_FOUND"})
+			c.AbortWithError(http.StatusNotFound, err)
 		}
 		c.JSON(http.StatusOK, contacts[id])
 	})
@@ -62,14 +62,14 @@ func main() {
 		contact_id := c.Params.ByName("contact_id")
 		id, err := strconv.Atoi(contact_id)
 		if err != nil {
-			c.JSON(http.StatusNotFound, gin.H{"reason": "NOT_FOUND"})
+			c.AbortWithError(http.StatusNotFound, err)
 		}
 		if len(contacts) <= id {
-			c.JSON(http.StatusNotFound, gin.H{"reason": "NOT_FOUND"})
+			c.AbortWithError(http.StatusNotFound, err)
 		}
 
 		if err := c.Bind(&contacts[id]); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"reason": err})
+			c.AbortWithError(http.StatusBadRequest, err)
 		}
 		c.JSON(http.StatusOK, contacts[id])
 	})
