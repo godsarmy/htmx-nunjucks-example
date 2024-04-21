@@ -1,6 +1,7 @@
 # htmx-nunjucks-example
-Provide htmx examples to work with nunjucks template
 
-Example of https://htmx.org/examples/ implemented by htmx client side template in nunjucks.
+Provide [htmx](https://htmx.org) examples applied in restAPI and [nunjucks](https://mozilla.github.io/nunjucks) template.
 
-https://htmx.org/extensions/client-side-templates/
+[Example](https://htmx.org/examples/) are purely implemented by htmx [client side template](https://htmx.org/extensions/client-side-templates/)
+
+Backend code is implemented by [Gin framework](https://gin-gonic.com)
