@@ -71,7 +71,7 @@ func main() {
 	router.LoadHTMLGlob("./templates/*.tmpl")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{})
+		c.HTML(http.StatusOK, "index.html.tmpl", gin.H{})
 	})
 
 	router.GET("/contact", func(c *gin.Context) {
