@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>lazy-load</title>
+
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/nunjucks@3.2.4/browser/nunjucks.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+      .htmx-settling img {
+        opacity: 0;
+      }
+      img {
+        transition: opacity 300ms ease-in;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/examples/lazy-load/" class="link-primary">htmx lazy load example</a>
+      <p>
+      <div hx-get="/graph" hx-trigger="load" nunjucks-template="graph-template">
+        <img alt="Result loading..."
+             class="htmx-indicator"
+             width="150"
+             src="/img/bars.svg"/>
+      </div>
+
+      <script id="graph-template" type="x-tmpl-nunjucks">
+        <img alt='{{ title }}' src='{{ path }}'> 
+      </script>
+    </div>
+  </body>
+
+</html>
