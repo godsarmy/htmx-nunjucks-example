@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>inline validation</title>
+
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/nunjucks@3.2.4/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/examples/inline-validation/" class="link-primary">htmx inline validation example</a>
+      <p>
+      <h1>Signup Form</h3>
+      <p>Enter an email into the input below and on tab out it will be validated.  Only "test@test.com" will pass.</p>
+      <form class="needs-validation" hx-post="/contact" hx-swap="none" hx-ext="json-enc">
+        <div hx-target="this" hx-swap="outerHTML">
+          <label class="form-label" for="validationEmail">Email Address</label>
+          <input name="email"
+                 id="validationEmail"
+                 hx-post="/contact/email"
+                 hx-indicator="#ind"
+                 nunjucks-template="email-template"
+                 class="form-control"
+                 aria-describedby="validationEmail"
+                 required>
+          <img id="ind" src="/img/bars.svg" class="htmx-indicator"/>
+        </div>
+        <div>
+          <label class="form-label" for="validationFirstname">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="validationFirstname" required>
+          <div class="invalid-feedback">
+            Please please input first name
+          </div>
+        </div>
+        <div>
+          <label class="form-label" for="validationLastname">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="validationLastname" required>
+          <div class="invalid-feedback">
+            Please please input last name
+          </div>
+        </div>
+        <button class="btn btn-secondary" type="submit">Submit</button>
+      </form>
+
+      <script id="email-template" type="x-tmpl-nunjucks">
+        <div hx-target="this" hx-swap="outerHTML">
+          <label class="form-label" for="validationEmail">Email Address</label>
+          <input name="email"
+                 value="{{ value }}"
+                 id="validationEmail"
+                 hx-post="/contact/email"
+                 hx-indicator="#ind"
+                 nunjucks-template="email-template"
+                 class="form-control {% if message -%}is-invalid{%- else -%}is-valid{%- endif %}"
+                 aria-describedby="validationEmail"
+                 required>
+          <img id="ind" src="/img/bars.svg" class="htmx-indicator"/>
+          {% if message -%}<div class='invalid-feedback'>{{ message }}</div>{%- endif %}
+        </div>
+      </script>
+
+    </div>
+
+  </body>
+
+</html>
