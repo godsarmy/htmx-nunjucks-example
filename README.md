@@ -1,7 +1,22 @@
 # htmx-nunjucks-example
 
+## What's this?
+
 Provide [htmx](https://htmx.org) examples applied in restAPI and [nunjucks](https://mozilla.github.io/nunjucks) template.
 
-[Example](https://htmx.org/examples/) are purely implemented by htmx [client side template](https://htmx.org/extensions/client-side-templates/)
+[Official HTMX Examples](https://htmx.org/examples/) are implemented with hypermedia calls. In this project, these examples are reimplemented with pure JSSON based restAPI calls with the help of htmx [client side template](https://htmx.org/extensions/client-side-templates/).
+Backend code is implemented by Golang [Gin framework](https://gin-gonic.com) for easy execution and simplicity.
 
-Backend code is implemented by [Gin framework](https://gin-gonic.com)
+## Why?
+
+Due to various reason, it is not alway easy to convert JSON restAPIs into hypermedia calls. This project leverages client side template technology to render dynamic html pages for JSON restAPIs.
+
+## Usage
+
+* Enter example subdirectory and launch Golang http server with `go run main.go`. 
+* Open `http://localhost:8080` in broswer.
+
+## Related Articles
+
+* [Handle Json API Results in htmx](https://marcus-obst.de/blog/htmx-json-handling)
+* [Creating a Spaceflight News Blog with HTMX & JSON API](https://jerrynsh.com/creating-a-spaceflight-news-blog-with-htmx-and-json-api)
