@@ -30,7 +30,7 @@ func main() {
 	router.Delims("{[{", "}]}")
 	router.LoadHTMLGlob("./templates/*.tmpl")
 
-    router.Static("/img", "./img")
+	router.Static("/img", "./img")
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html.tmpl", gin.H{})
 	})
