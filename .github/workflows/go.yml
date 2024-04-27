@@ -25,4 +25,4 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: echo "no test needed"
+      run: gofmt -d */*.go
