@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-    "strings"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -62,19 +62,19 @@ func main() {
 	})
 
 	router.GET("/contacts/", func(c *gin.Context) {
-        search := c.Query("search")
+		search := c.Query("search")
 		if search == "" {
-		    c.JSON(http.StatusOK, contacts)
+			c.JSON(http.StatusOK, contacts)
 			return
-        }
+		}
 
-        var selected_contacts []Contact
+		var selected_contacts []Contact
 		for _, contact := range contacts {
-            if strings.Contains(contact.FirstName, search) || 
-               strings.Contains(contact.LastName, search) || 
-               strings.Contains(contact.Email, search) {
-               selected_contacts = append(selected_contacts, contact) 
-            }
+			if strings.Contains(contact.FirstName, search) ||
+				strings.Contains(contact.LastName, search) ||
+				strings.Contains(contact.Email, search) {
+				selected_contacts = append(selected_contacts, contact)
+			}
 		}
 		c.JSON(http.StatusOK, selected_contacts)
 	})
