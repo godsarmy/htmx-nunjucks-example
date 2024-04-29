@@ -80,7 +80,10 @@ func main() {
 
 		found := find_contact(id)
 		if found == nil {
-			c.AbortWithError(http.StatusNotFound, err)
+			c.AbortWithStatusJSON(
+				http.StatusNotFound,
+				gin.H{"reason": "wrong contact_id"},
+			)
 			return
 		}
 
@@ -98,7 +101,10 @@ func main() {
 
 		found := find_contact(id)
 		if found == nil {
-			c.AbortWithError(http.StatusNotFound, err)
+			c.AbortWithStatusJSON(
+				http.StatusNotFound,
+				gin.H{"reason": "wrong contact_id"},
+			)
 			return
 		}
 
