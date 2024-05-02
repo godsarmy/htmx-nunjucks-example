@@ -78,6 +78,11 @@ func main() {
 		contact_id := c.Params.ByName("contact_id")
 		id, err := strconv.Atoi(contact_id)
 
+		if err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
 		found := find_contact(id)
 		if found == nil {
 			c.AbortWithStatusJSON(
