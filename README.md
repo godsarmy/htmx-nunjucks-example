@@ -14,7 +14,7 @@ Due to various reason, it is not alway easy to convert JSON restAPIs into hyperm
 ## Usage
 
 * Enter example subdirectory and launch Golang http server with `go run main.go`. 
-* Open `http://localhost:8080` in broswer.
+* Open `http://localhost:8080` in browser.
 
 ## Related Articles
 
