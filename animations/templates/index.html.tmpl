@@ -24,6 +24,14 @@
           opacity: 0;
           transition: opacity 1s ease-out;
         }
+
+        #fade-me-in.htmx-added {
+          opacity: 0;
+        }
+        #fade-me-in {
+          opacity: 1;
+          transition: opacity 1s ease-out;
+        }
     </style>
 
   </head>
@@ -72,6 +80,28 @@
 
       <script id="fade-out-template" type="x-tmpl-nunjucks">
       <!--nothing display after fade out-->
+      </script>
+
+      <p>
+      <h3 id="fade-in-on-addition">
+        <a class="zola-anchor" href="#fade-in-on-addition" aria-label="Anchor link for: fade-in-on-addition">#</a>
+        Fade In On Addition
+      </h3>
+
+      <button hx-post="/fade-in"
+              hx-swap="outerHTML"
+              hx-trigger="load"
+              nunjucks-template="fade-in-template">
+      </button>
+
+      <script id="fade-in-template" type="x-tmpl-nunjucks">
+      <button class="btn btn-primary"
+              id="fade-me-in"
+              hx-post="/fade-in"
+              hx-swap="outerHTML settle:1s"
+              nunjucks-template="fade-in-template">
+      Fade Me In {{count}}
+      </button>
       </script>
 
     </div>

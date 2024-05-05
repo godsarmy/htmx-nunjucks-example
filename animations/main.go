@@ -10,6 +10,7 @@ var COLORS = []string{"red", "blue", "green", "orange"}
 
 func main() {
 	current_index := 0
+	fade_in := 0
 
 	router := gin.Default()
 	router.Delims("{[{", "}]}")
@@ -31,6 +32,11 @@ func main() {
 
 	router.DELETE("/fade-out", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{})
+	})
+
+	router.POST("/fade-in", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"count": fade_in})
+		fade_in++
 	})
 
 	router.Run(":8080")
