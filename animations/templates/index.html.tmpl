@@ -32,6 +32,11 @@
           opacity: 1;
           transition: opacity 1s ease-out;
         }
+
+        .form-request.htmx-swapping {
+          opacity: .2;
+          transition: opacity 500ms linear;
+        }
     </style>
 
   </head>
@@ -103,6 +108,25 @@
       Fade Me In {{count}}
       </button>
       </script>
+
+      <p>
+      <h3 id="request">
+        <a class="zola-anchor" href="#request" aria-label="Anchor link for: request">#</a>
+        Request In Flight Animation
+      </h3>
+
+      <form class="form-request" hx-post="/name" hx-swap="outerHTML swap:500ms" nunjucks-template="request-template">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input class="form-control" type="text" name="name"></input>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+
+      <script id="request-template" type="x-tmpl-nunjucks">
+      <div>{{ caption }}</div>
+      </script>
+
 
     </div>
   </body>

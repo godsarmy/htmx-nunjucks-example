@@ -39,5 +39,9 @@ func main() {
 		fade_in++
 	})
 
+	router.POST("/name", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"caption": "Submitted"})
+	})
+
 	router.Run(":8080")
 }
