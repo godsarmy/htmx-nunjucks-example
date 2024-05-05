@@ -29,5 +29,9 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"color": color})
 	})
 
+	router.DELETE("/fade-out", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{})
+	})
+
 	router.Run(":8080")
 }
