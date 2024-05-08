@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.11"></script>
     <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/client-side-templates.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/class-tools.js"></script>
     <script src="https://unpkg.com/nunjucks@3.2.4/browser/nunjucks.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -36,6 +37,14 @@
         .form-request.htmx-swapping {
           opacity: .2;
           transition: opacity 500ms linear;
+        }
+
+        .demo.faded {
+          opacity:.3;
+        }
+        .demo {
+          opacity:1;
+          transition: opacity ease-in 900ms;
         }
     </style>
 
@@ -127,7 +136,14 @@
       <div>{{ caption }}</div>
       </script>
 
-
+      <p>
+      <h3 id="using-the-htmx-class-tools-extension">
+        <a class="zola-anchor" href="#using-the-htmx-class-tools-extension" aria-label="Anchor link for: using-the-htmx-class-tools-extension">#</a>
+        Using the htmx <code>class-tools</code> Extension
+      </h3>
+      <div class="mb-3" hx-ext="class-tools">
+        <div class="demo" classes="toggle faded:1s">Toggle Demo</div>
+      </div>
     </div>
   </body>
 
