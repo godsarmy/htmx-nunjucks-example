@@ -10,6 +10,7 @@ import (
 
 type Input struct {
 	Message string `json:"message"`
+	Control string `json:"control"`
 }
 
 type Output struct {
@@ -73,6 +74,10 @@ func main() {
 			err = conn.WriteMessage(messageType, reply_bytes)
 			if err != nil {
 				c.AbortWithError(http.StatusInternalServerError, err)
+				break
+			}
+
+			if input.Control == "stop" {
 				break
 			}
 		}
