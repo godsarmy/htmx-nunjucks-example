@@ -36,5 +36,9 @@ all: \
 	websocket-echo/main
 
 .PHONY: all
+format:
+	gofmt -w */*.go
+
+.PHONY: all
 clean:
 	rm -rf */main
