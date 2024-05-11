@@ -1,9 +1,10 @@
 
 GO ?= go
 
-VERSION ?= $(shell cat ./VERSION)
+HTMX_VERSION ?= $(shell cat ./VERSION)
+NUNJUCKS_VERSION ?= 3.2.4
 
-LDFLAGS_COMMON = -X main.htmx_version=$(VERSION)
+LDFLAGS_COMMON = -X main.htmx_version=$(HTMX_VERSION) -X main.nunjucks_version=$(NUNJUCKS_VERSION)
 GO_BUILD := $(GO) build $(EXTRA_FLAGS) -ldflags "$(LDFLAGS_COMMON)"
 
 .DEFAULT: all
@@ -14,7 +15,12 @@ GO_BUILD := $(GO) build $(EXTRA_FLAGS) -ldflags "$(LDFLAGS_COMMON)"
 
 .PHONY: all
 all: \
-	click-to-edit/main click-to-load/main
+	active-search/main \
+	animations/main \
+	bulk-update/main \
+	click-to-edit/main \
+	click-to-load/main \
+	delete-row/main
 
 .PHONY: all
 clean:
