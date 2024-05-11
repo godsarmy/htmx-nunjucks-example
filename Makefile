@@ -20,7 +20,20 @@ all: \
 	bulk-update/main \
 	click-to-edit/main \
 	click-to-load/main \
-	delete-row/main
+	delete-row/main	\
+	dialogs/main \
+	edit-row/main \
+	infinite-scroll/main \
+	inline-validation/main \
+	keyboard-shortcuts/main \
+	lazy-load/main \
+	modal-bootstrap/main \
+	progress-bar/main \
+	sortable/main \
+	tab/main \
+	value-select/main \
+	websocket/main \
+	websocket-echo/main
 
 .PHONY: all
 clean:

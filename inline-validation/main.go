@@ -7,6 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var htmx_version = "latest"
+var nunjucks_version = "3.2.4"
+
 type Contact struct {
 	FirstName string `json:"firstName"    binding:"required"`
 	LastName  string `json:"lastName"     binding:"required"`
@@ -27,7 +30,14 @@ func main() {
 
 	router.Static("/img", "./img")
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html.tmpl", gin.H{})
+		c.HTML(
+			http.StatusOK,
+			"index.html.tmpl",
+			gin.H{
+				"htmx_version":     htmx_version,
+				"nunjucks_version": nunjucks_version,
+			},
+		)
 	})
 
 	router.POST("/contact/email", func(c *gin.Context) {

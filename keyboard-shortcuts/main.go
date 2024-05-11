@@ -8,6 +8,9 @@ import (
 
 const RESULT = "Did it!"
 
+var htmx_version = "latest"
+var nunjucks_version = "3.2.4"
+
 func main() {
 
 	router := gin.Default()
@@ -15,7 +18,14 @@ func main() {
 	router.LoadHTMLGlob("./templates/*.tmpl")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html.tmpl", gin.H{})
+		c.HTML(
+			http.StatusOK,
+			"index.html.tmpl",
+			gin.H{
+				"htmx_version":     htmx_version,
+				"nunjucks_version": nunjucks_version,
+			},
+		)
 	})
 
 	router.POST("/doit", func(c *gin.Context) {

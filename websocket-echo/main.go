@@ -8,6 +8,9 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var htmx_version = "latest"
+var nunjucks_version = "3.2.4"
+
 type Input struct {
 	Message string `json:"message"`
 	Control string `json:"control"`
@@ -31,7 +34,14 @@ func main() {
 	router.LoadHTMLGlob("./templates/*.tmpl")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html.tmpl", gin.H{})
+		c.HTML(
+			http.StatusOK,
+			"index.html.tmpl",
+			gin.H{
+				"htmx_version":     htmx_version,
+				"nunjucks_version": nunjucks_version,
+			},
+		)
 	})
 
 	router.GET("/chat", func(c *gin.Context) {

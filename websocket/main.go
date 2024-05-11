@@ -9,6 +9,9 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var htmx_version = "latest"
+var nunjucks_version = "3.2.4"
+
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
@@ -21,8 +24,16 @@ func main() {
 	router.LoadHTMLGlob("./templates/*.tmpl")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html.tmpl", gin.H{})
+		c.HTML(
+			http.StatusOK,
+			"index.html.tmpl",
+			gin.H{
+				"htmx_version":     htmx_version,
+				"nunjucks_version": nunjucks_version,
+			},
+		)
 	})
+
 	router.GET("/time", func(c *gin.Context) {
 		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 		if err != nil {
