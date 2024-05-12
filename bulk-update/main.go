@@ -1,8 +1,10 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 
@@ -12,12 +14,15 @@ import (
 var htmx_version = "latest"
 var nunjucks_version = "3.2.4"
 
+//go:embed templates/*
+var embed_fs embed.FS
+
 type Contact struct {
-	ID        int    `json:"id"           binding:"required"`
-	FirstName string `json:"firstName"    `
-	LastName  string `json:"lastName"     `
-	Email     string `json:"email"        `
-	Active    bool   `json:"active"       binding:"required"`
+	ID        int    `json:"id"        binding:"required"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Email     string `json:"email"`
+	Active    bool   `json:"active"    binding:"required"`
 }
 
 var contacts []Contact
@@ -62,9 +67,10 @@ func main() {
 	fmt.Println(contacts)
 
 	router := gin.Default()
-	router.Delims("{[{", "}]}")
-	router.LoadHTMLGlob("./templates/*.tmpl")
-
+	templ := template.Must(
+		template.New("").Delims("{[{", "}]}").ParseFS(embed_fs, "templates/*.tmpl"),
+	)
+	router.SetHTMLTemplate(templ)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,

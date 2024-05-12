@@ -35,9 +35,12 @@ all: \
 	websocket/main \
 	websocket-echo/main
 
+# use golines to limit line length
+# https://github.com/segmentio/golines
 .PHONY: all
 format:
 	gofmt -w */*.go
+	golines -w */*.go
 
 .PHONY: all
 clean:

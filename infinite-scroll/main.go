@@ -2,7 +2,10 @@ package main
 
 import (
 	"crypto/sha256"
+	"embed"
 	"fmt"
+	"html/template"
+	"io/fs"
 	"net/http"
 	"strconv"
 
@@ -12,11 +15,14 @@ import (
 var htmx_version = "latest"
 var nunjucks_version = "3.2.4"
 
+//go:embed templates/* img/*
+var embed_fs embed.FS
+
 type Contact struct {
-	FirstName string `json:"firstName"    binding:"required"`
-	LastName  string `json:"lastName"     binding:"required"`
-	Email     string `json:"email"        binding:"required"`
-	ID        string `json:"id"           binding:"required"`
+	FirstName string `json:"firstName" binding:"required"`
+	LastName  string `json:"lastName"  binding:"required"`
+	Email     string `json:"email"     binding:"required"`
+	ID        string `json:"id"        binding:"required"`
 }
 
 func sha256hash(input string) string {
@@ -30,10 +36,10 @@ func sha256hash(input string) string {
 func main() {
 
 	router := gin.Default()
-	router.Delims("{[{", "}]}")
-	router.LoadHTMLGlob("./templates/*.tmpl")
-
-	router.Static("/img", "./img")
+	templ := template.Must(
+		template.New("").Delims("{[{", "}]}").ParseFS(embed_fs, "templates/*.tmpl"),
+	)
+	router.SetHTMLTemplate(templ)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
@@ -44,6 +50,9 @@ func main() {
 			},
 		)
 	})
+
+	var image_fs, _ = fs.Sub(embed_fs, "img")
+	router.StaticFS("/img", http.FS(image_fs))
 
 	router.GET("/contacts/", func(c *gin.Context) {
 		page := c.DefaultQuery("page", "1")

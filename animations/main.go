@@ -1,6 +1,8 @@
 package main
 
 import (
+	"embed"
+	"html/template"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +11,9 @@ import (
 var htmx_version = "latest"
 var nunjucks_version = "3.2.4"
 
+//go:embed templates/*
+var embed_fs embed.FS
+
 var COLORS = []string{"red", "blue", "green", "orange"}
 
 func main() {
@@ -16,9 +21,10 @@ func main() {
 	fade_in := 0
 
 	router := gin.Default()
-	router.Delims("{[{", "}]}")
-	router.LoadHTMLGlob("./templates/*.tmpl")
-
+	templ := template.Must(
+		template.New("").Delims("{[{", "}]}").ParseFS(embed_fs, "templates/*.tmpl"),
+	)
+	router.SetHTMLTemplate(templ)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,

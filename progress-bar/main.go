@@ -1,10 +1,18 @@
 package main
 
 import (
+	"embed"
+	"html/template"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
+
+var htmx_version = "latest"
+var nunjucks_version = "3.2.4"
+
+//go:embed templates/*
+var embed_fs embed.FS
 
 type Progress struct {
 	Percent int `json:"percent"`
@@ -15,16 +23,14 @@ const UNKNOWN = -1
 const RUNNING = 0
 const STOPPED = 1
 
-var htmx_version = "latest"
-var nunjucks_version = "3.2.4"
-
 func main() {
 	var jobset map[string]Progress = make(map[string]Progress)
 
 	router := gin.Default()
-	router.Delims("{[{", "}]}")
-	router.LoadHTMLGlob("./templates/*.tmpl")
-
+	templ := template.Must(
+		template.New("").Delims("{[{", "}]}").ParseFS(embed_fs, "templates/*.tmpl"),
+	)
+	router.SetHTMLTemplate(templ)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
@@ -71,7 +77,11 @@ func main() {
 		}
 		c.JSON(
 			http.StatusOK,
-			gin.H{"job_id": job_id, "status": jobset["job_id"].Status, "percent": jobset["job_id"].Percent},
+			gin.H{
+				"job_id":  job_id,
+				"status":  jobset["job_id"].Status,
+				"percent": jobset["job_id"].Percent,
+			},
 		)
 	})
 
@@ -98,7 +108,11 @@ func main() {
 		}
 		c.JSON(
 			http.StatusOK,
-			gin.H{"job_id": job_id, "status": jobset["job_id"].Status, "percent": jobset["job_id"].Percent},
+			gin.H{
+				"job_id":  job_id,
+				"status":  jobset["job_id"].Status,
+				"percent": jobset["job_id"].Percent,
+			},
 		)
 	})
 

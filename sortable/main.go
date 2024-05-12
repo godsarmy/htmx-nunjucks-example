@@ -1,8 +1,10 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
 	"strconv"
 
@@ -12,13 +14,16 @@ import (
 var htmx_version = "latest"
 var nunjucks_version = "3.2.4"
 
+//go:embed templates/*
+var embed_fs embed.FS
+
 type Item struct {
 	Name string `json:"name"`
 	ID   int    `json:"id"`
 }
 
 type ItemList struct {
-	Item []string `json:"item"  binding:"required"`
+	Item []string `json:"item" binding:"required"`
 }
 
 var items []Item
@@ -65,9 +70,10 @@ func main() {
 	fmt.Println(items)
 
 	router := gin.Default()
-	router.Delims("{[{", "}]}")
-	router.LoadHTMLGlob("./templates/*.tmpl")
-
+	templ := template.Must(
+		template.New("").Delims("{[{", "}]}").ParseFS(embed_fs, "templates/*.tmpl"),
+	)
+	router.SetHTMLTemplate(templ)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
