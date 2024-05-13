@@ -28,6 +28,7 @@ all: \
 	keyboard-shortcuts/main \
 	lazy-load/main \
 	modal-bootstrap/main \
+	multi-swap/main \
 	progress-bar/main \
 	sortable/main \
 	tab/main \
