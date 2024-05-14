@@ -20,6 +20,7 @@ all: \
 	bulk-update/main \
 	click-to-edit/main \
 	click-to-load/main \
+	debug/main \
 	delete-row/main	\
 	dialogs/main \
 	edit-row/main \
@@ -30,6 +31,7 @@ all: \
 	modal-bootstrap/main \
 	multi-swap/main \
 	progress-bar/main \
+	restored/main \
 	sortable/main \
 	tab/main \
 	value-select/main \
