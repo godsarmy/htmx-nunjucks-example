@@ -31,6 +31,7 @@ all: \
 	modal-bootstrap/main \
 	multi-swap/main \
 	progress-bar/main \
+	response-targets/main \
 	restored/main \
 	sortable/main \
 	tab/main \
