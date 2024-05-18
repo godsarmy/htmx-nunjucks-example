@@ -30,6 +30,7 @@ all: \
 	lazy-load/main \
 	modal-bootstrap/main \
 	multi-swap/main \
+	path-params/main \
 	progress-bar/main \
 	response-targets/main \
 	restored/main \

@@ -4,10 +4,10 @@
   <head>
 
     <meta charset='UTF-8'>
-    <title>debug</title>
+    <title>path params</title>
 
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
-    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/debug.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/path-params.js"></script>
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
     <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
 
@@ -19,22 +19,42 @@
 
   <body hx-ext="debug">
     <div class="container" hx-boost="true" hx-ext="client-side-templates">
-      <a href="https://htmx.org/extensions/debug/" class="link-primary">htmx debug extension example</a>
+      <a href="https://htmx.org/extensions/path-params/" class="link-primary">htmx path params extension example</a>
       <p>
-      <h3>Set console verbose level to see debug log produced by console.debug</h3>
-      <button class="btn btn-primary"
-              hx-target="#show"
-              hx-get="/get_example"
-              hx-trigger="click"
-              nunjucks-template="show-template">
-      Debug Get
-      </button>
+
+      <form hx-ext="path-params"
+            hx-get="/{animal}/"
+            hx-target="#show"
+            nunjucks-array-template="show-template">
+        <div>
+          <label>Animal</label>
+          <select class="form-select"
+                  name="animal">
+            <option value="bird">Bird</option>
+            <option value="mammal">Mammal</option>
+          </select>
+        </div>
+        <div>
+          <label>Size</label>
+          <select class="form-select"
+                  name="size">
+            <option value="small">Small</option>
+            <option value="middle">Middle</option>
+            <option value="big">Big</option>
+          </select>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
 
       <p>
       <div id="show"></div>
 
       <script id="show-template" type="x-tmpl-nunjucks">
-        <div class="text-success">{{ message }}</div>
+        <ul class="list-group">
+        {% for animal in data %}
+        <li class="list-group-item">{{ animal.name }}</li>
+        {% endfor %}
+        </ul>
       </script>
 
     </div>

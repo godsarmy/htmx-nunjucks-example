@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-    "fmt"
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -17,8 +17,8 @@ var embed_fs embed.FS
 
 type Animal struct {
 	Name string `json:"name" binding:"required"`
-	Type string `json:"type"  binding:"required"`
-	Size string `json:"size"     binding:"required"`
+	Type string `json:"type" binding:"required"`
+	Size string `json:"size" binding:"required"`
 }
 
 var animals []Animal
@@ -80,20 +80,20 @@ func main() {
 		)
 	})
 
-    router.GET("/:animal_type/", func(c *gin.Context) {
+	router.GET("/:animal_type/", func(c *gin.Context) {
 		animal_type := c.Params.ByName("animal_type")
 
-        var result []Animal
-        for _, animal := range(animals) {
-            if animal.Type != animal_type {
-                break
-            }
-            size := c.Query("size")
-            if size != "" && animal.Size != size {
-                break
-            }
-            result = append(result, animal)
-        }
+		var result []Animal
+		for _, animal := range animals {
+			if animal.Type != animal_type {
+				continue
+			}
+			size := c.Query("size")
+			if size != "" && animal.Size != size {
+				continue
+			}
+			result = append(result, animal)
+		}
 		c.JSON(http.StatusOK, result)
 	})
 
