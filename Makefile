@@ -28,6 +28,7 @@ all: \
 	inline-validation/main \
 	keyboard-shortcuts/main \
 	lazy-load/main \
+	loading-states/main \
 	modal-bootstrap/main \
 	multi-swap/main \
 	path-params/main \

@@ -4,6 +4,7 @@ import (
 	"embed"
 	"html/template"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,7 +34,9 @@ func main() {
 	})
 
 	router.POST("/save", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{"message": "ok")
+		// sleep one second before sending data to simulate slow server
+		time.Sleep(time.Second)
+		c.JSON(http.StatusOK, gin.H{"message": "ok"})
 	})
 
 	router.Run(":8080")
