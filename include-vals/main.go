@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -10,6 +11,7 @@ import (
 
 var htmx_version = "latest"
 var nunjucks_version = "3.2.4"
+var bootstrap_version = "latest"
 
 //go:embed templates/*
 var embed_fs embed.FS
@@ -26,24 +28,22 @@ func main() {
 			http.StatusOK,
 			"index.html.tmpl",
 			gin.H{
-				"htmx_version":     htmx_version,
-				"nunjucks_version": nunjucks_version,
+				"htmx_version":      htmx_version,
+				"nunjucks_version":  nunjucks_version,
+				"bootstrap_version": bootstrap_version,
 			},
 		)
 	})
 
-	router.POST("/data/:data_type", func(c *gin.Context) {
-		data_type := c.Params.ByName("data_type")
-		c.JSON(http.StatusOK, gin.H{"message": data_type})
-	})
+	router.GET("/test", func(c *gin.Context) {
+		computed := c.Query("computed")
 
-	router.POST("/path1/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "post path1"})
+		c.JSON(
+			http.StatusOK,
+			gin.H{
+				"message": fmt.Sprintf("From %s", computed),
+			},
+		)
 	})
-
-	router.GET("/path2/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "get path2"})
-	})
-
 	router.Run(":8080")
 }

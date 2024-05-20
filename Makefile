@@ -24,7 +24,7 @@ all: \
 	delete-row/main	\
 	dialogs/main \
 	edit-row/main \
-	head-support/main \
+	include-vals/main \
 	infinite-scroll/main \
 	inline-validation/main \
 	keyboard-shortcuts/main \

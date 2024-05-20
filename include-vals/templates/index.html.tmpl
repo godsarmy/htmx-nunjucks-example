@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>include vals</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/include-vals.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="include-vals,client-side-templates">
+      <a href="https://htmx.org/extensions/include-vals/" class="link-primary">htmx include vals extension example</a>
+      <p>
+
+      <button class="btn btn-primary"
+              hx-get="/test"
+              include-vals="included:true, computed: computeValue()"
+              hx-target="#show"
+              hx-trigger="click"
+              nunjucks-template="test-template">
+      submit include vals
+      </button>
+
+      <div id="show"></div>
+
+      <script id="test-template" type="x-tmpl-nunjucks">
+        {{ message }}
+      </script>
+
+      <script type="text/javascript">
+        function computeValue() {
+            return window.location.href
+        }
+      </script>
+
+    </div>
+  </body>
+
+</html>
