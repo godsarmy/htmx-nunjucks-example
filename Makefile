@@ -3,8 +3,13 @@ GO ?= go
 
 HTMX_VERSION ?= $(shell cat ./HTMX_VERSION)
 NUNJUCKS_VERSION ?= $(shell cat ./NUNJUCKS_VERSION)
+BOOTSTRAP_VERSION ?= $(shell cat ./BOOTSTRAP_VERSION)
 
-LDFLAGS_COMMON = -X main.htmx_version=$(HTMX_VERSION) -X main.nunjucks_version=$(NUNJUCKS_VERSION)
+LDFLAGS_COMMON = \
+	-X main.htmx_version=$(HTMX_VERSION) \
+	-X main.nunjucks_version=$(NUNJUCKS_VERSION) \
+	-X main.bootstrap_version=$(BOOTSTRAP_VERSION)
+
 GO_BUILD := $(GO) build $(EXTRA_FLAGS) -ldflags "$(LDFLAGS_COMMON)"
 
 .DEFAULT: all
