@@ -10,6 +10,7 @@ import (
 
 var htmx_version = "latest"
 var nunjucks_version = "3.2.4"
+var bootstrap_version = "latest"
 
 //go:embed templates/*
 var embed_fs embed.FS
@@ -36,8 +37,9 @@ func main() {
 			http.StatusOK,
 			"index.html.tmpl",
 			gin.H{
-				"htmx_version":     htmx_version,
-				"nunjucks_version": nunjucks_version,
+				"htmx_version":      htmx_version,
+				"nunjucks_version":  nunjucks_version,
+				"bootstrap_version": bootstrap_version,
 			},
 		)
 	})
