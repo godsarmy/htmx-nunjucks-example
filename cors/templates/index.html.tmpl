@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>cors</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+      .hiddenRow {
+        padding: 0 !important;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/examples/click-to-edit/" class="link-primary">htmx cors example</a>
+      <p>
+
+      <button class="btn btn-primary"
+              hx-get="/local_example"
+              hx-target="#show"
+              nunjucks-template="show-template">
+      local get
+      </button>
+      <p></p>
+
+      <button class="btn btn-primary"
+              hx-get="http://localhost:8090/other_example"
+              hx-target="#show"
+              nunjucks-template="show-template">
+      cors get
+      </button>
+      <p></p>
+      <div id="show"></div>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        <div>{{ message }}<div>
+      </script>
+
+    </div>
+  </body>
+
+</html>

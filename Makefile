@@ -25,6 +25,7 @@ all: \
 	bulk-update/main \
 	click-to-edit/main \
 	click-to-load/main \
+	cors/main \
 	debug/main \
 	delete-row/main	\
 	dialogs/main \
