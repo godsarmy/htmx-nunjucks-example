@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>preload</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/preload.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+      .hiddenRow {
+        padding: 0 !important;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/extensions/preload/" class="link-primary">htmx preload example</a>
+      <p>
+      <div hx-get="/contact/1"
+           hx-trigger="load"
+           nunjucks-template="show-template">
+      </div>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        <div hx-target="this" hx-swap="outerHTML">
+          <div><label>First Name</label>: {{firstName}}</div>
+          <div><label>Last Name</label>: {{lastName}}</div>
+          <div><label>Email</label>: {{email}}</div>
+          <button class="btn btn-primary"
+                  hx-get="/contact/1" 
+                  nunjucks-template="edit-template">Click To Edit</button>
+        <div>
+      </script>
+
+      <script id="edit-template" type="x-tmpl-nunjucks">
+        <form hx-put="/contact/1" hx-target="this" hx-swap="outerHTML" hx-ext="json-enc">
+          <div>
+            <label>First Name</label>
+            <input type="text" name="firstName" value="{{firstName}}" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="lastName" value="{{lastName}}" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" value="{{email}}" required>
+          </div>
+          <button class="btn btn-primary">Submit</button>
+          <button class="btn btn-secondary"
+                  hx-get="/contact/1"
+                  nunjucks-template="show-template">Cancel</button>
+        </form> 
+      </script>
+    </div>
+  </body>
+
+</html>

@@ -40,6 +40,7 @@ all: \
 	multi-swap/main \
 	path-deps/main \
 	path-params/main \
+	preload/main \
 	progress-bar/main \
 	response-targets/main \
 	restored/main \
