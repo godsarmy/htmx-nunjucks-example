@@ -17,26 +17,56 @@ var bootstrap_version = "latest"
 //go:embed templates/*
 var embed_fs embed.FS
 
-type Contact struct {
-	FirstName string `json:"firstName" binding:"required"`
-	LastName  string `json:"lastName"  binding:"required"`
-	Email     string `json:"email"     binding:"required"`
+type Server struct {
+	Name string `json:"name" binding:"required"`
+	Id   int    `json:"id"   binding:"required"`
 }
 
-var contacts []Contact
+type ServerDetail struct {
+	Id     int `json:"id"   binding:"required"`
+	Cpu    int `json:"cpu"  binding:"required"`
+	Memory int `json:"memory"  binding:"required"`
+	Disk   int `json:"disk"  binding:"required"`
+}
+
+var servers []Server
+var serverDetails []ServerDetail
 
 func init_db() {
 
-	contacts = []Contact{
-		Contact{
-			FirstName: "foo",
-			LastName:  "bar",
-			Email:     "foo@gmail.com",
+	servers = []Server{
+		Server{
+			Name: "server-zero",
+			Id:   0,
 		},
-		Contact{
-			FirstName: "Joe",
-			LastName:  "Blow",
-			Email:     "joe@blow.com",
+		Server{
+			Name: "server-one",
+			Id:   1,
+		},
+		Server{
+			Name: "server-two",
+			Id:   2,
+		},
+	}
+
+	serverDetails = []ServerDetail{
+		ServerDetail{
+			Cpu:    4,
+			Memory: 16384,
+			Disk:   524288,
+			Id:     0,
+		},
+		ServerDetail{
+			Cpu:    8,
+			Memory: 16384,
+			Disk:   524288,
+			Id:     1,
+		},
+		ServerDetail{
+			Cpu:    8,
+			Memory: 32768,
+			Disk:   524288,
+			Id:     2,
 		},
 	}
 }
@@ -44,7 +74,8 @@ func init_db() {
 func main() {
 
 	init_db()
-	fmt.Println(contacts)
+	fmt.Println(servers)
+	fmt.Println(serverDetails)
 
 	router := gin.Default()
 	templ := template.Must(
@@ -63,33 +94,21 @@ func main() {
 		)
 	})
 
-	router.GET("/contact/:contact_id", func(c *gin.Context) {
-		contact_id := c.Params.ByName("contact_id")
-		id, err := strconv.Atoi(contact_id)
-
-		if err != nil {
-			c.AbortWithError(http.StatusNotFound, err)
-		}
-		if len(contacts) <= id {
-			c.AbortWithError(http.StatusNotFound, err)
-		}
-		c.JSON(http.StatusOK, contacts[id])
+	router.GET("/server/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, servers)
 	})
 
-	router.PUT("/contact/:contact_id", func(c *gin.Context) {
-		contact_id := c.Params.ByName("contact_id")
-		id, err := strconv.Atoi(contact_id)
+	router.GET("/server/:server_id", func(c *gin.Context) {
+		server_id := c.Params.ByName("server_id")
+		id, err := strconv.Atoi(server_id)
+
 		if err != nil {
 			c.AbortWithError(http.StatusNotFound, err)
 		}
-		if len(contacts) <= id {
+		if len(serverDetails) <= id {
 			c.AbortWithError(http.StatusNotFound, err)
 		}
-
-		if err := c.Bind(&contacts[id]); err != nil {
-			c.AbortWithError(http.StatusBadRequest, err)
-		}
-		c.JSON(http.StatusOK, contacts[id])
+		c.JSON(http.StatusOK, serverDetails[id])
 	})
 
 	router.Run(":8080")
