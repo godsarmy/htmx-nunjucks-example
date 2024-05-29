@@ -23,10 +23,10 @@ type Server struct {
 }
 
 type ServerDetail struct {
-	Id     int `json:"id"   binding:"required"`
-	Cpu    int `json:"cpu"  binding:"required"`
-	Memory int `json:"memory"  binding:"required"`
-	Disk   int `json:"disk"  binding:"required"`
+	Id     int `json:"id"     binding:"required"`
+	Cpu    int `json:"cpu"    binding:"required"`
+	Memory int `json:"memory" binding:"required"`
+	Disk   int `json:"disk"   binding:"required"`
 }
 
 var servers []Server
