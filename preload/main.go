@@ -94,7 +94,7 @@ func main() {
 		)
 	})
 
-	router.GET("/server/", func(c *gin.Context) {
+	router.GET("/server", func(c *gin.Context) {
 		c.JSON(http.StatusOK, servers)
 	})
 
