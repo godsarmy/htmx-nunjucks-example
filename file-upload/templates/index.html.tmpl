@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>file-upload</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+      .hiddenRow {
+        padding: 0 !important;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/examples/file-upload/" class="link-primary">htmx file upload example</a>
+      <p>
+      <form id='form'
+            hx-encoding='multipart/form-data'
+            hx-post='/upload'
+            hx-target="#show"
+            nunjucks-template="show-template">
+        <div class="mb-3">
+          <input class="form-control" type='file' name='file' required>
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-primary">Upload</button>
+          <progress id='progress' value='0' max='100'></progress>
+        </div>
+      </form>
+
+      <div id="show"></div>
+
+      <script type="text/javascript">
+        htmx.on('#form', 'htmx:xhr:progress', function(evt) {
+          htmx.find('#progress').setAttribute('value', evt.detail.loaded/evt.detail.total * 100)
+        });
+      </script>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        {{ message }}
+      </script>
+    </div>
+  </body>
+
+</html>
