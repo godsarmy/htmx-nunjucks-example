@@ -30,6 +30,7 @@ all: \
 	delete-row/main	\
 	dialogs/main \
 	edit-row/main \
+	file-upload/main \
 	include-vals/main \
 	infinite-scroll/main \
 	inline-validation/main \
