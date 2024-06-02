@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>path deps</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/path-deps.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="path-deps,client-side-templates">
+      <a href="https://htmx.org/extensions/path-deps/" class="link-primary">htmx path deps extension example</a>
+      <p>
+
+      <button class="btn btn-primary"
+              hx-post="/data/foo"
+              hx-target="#show"
+              nunjucks-template="data-template">
+      Post data
+      </button>
+      <div id="show"></div>
+      <p>
+      <div hx-post="/path1"
+           hx-trigger="path-deps"
+           path-deps="/data/*"
+           nunjucks-template="path-template">...</div>
+      <p>
+      <div hx-get="/path2"
+           hx-trigger="path-deps"
+           path-deps="/path1"
+           nunjucks-template="path-template">...</div>
+
+
+      <script id="data-template" type="x-tmpl-nunjucks">
+        Data: {{ message }}
+      </script>
+
+      <script id="path-template" type="x-tmpl-nunjucks">
+        Path: {{ message }}
+      </script>
+
+    </div>
+  </body>
+
+</html>
