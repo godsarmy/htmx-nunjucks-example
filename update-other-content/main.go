@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -15,7 +16,31 @@ var bootstrap_version = "latest"
 //go:embed templates/*
 var embed_fs embed.FS
 
+type Contact struct {
+	Name  string `json:"name" binding:"required"`
+	Email string `json:"email"     binding:"required"`
+}
+
+var contacts []Contact
+
+func init_db() {
+
+	contacts = []Contact{
+		Contact{
+			Name:  "foo bar",
+			Email: "foo@gmail.com",
+		},
+		Contact{
+			Name:  "Joe Blow",
+			Email: "joe@blow.com",
+		},
+	}
+}
+
 func main() {
+
+	init_db()
+	fmt.Println(contacts)
 
 	router := gin.Default()
 	templ := template.Must(
@@ -32,7 +57,7 @@ func main() {
 	router.GET("/expand-target", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
-			"index.html.tmpl",
+			"expand-target.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
 				"nunjucks_version":  nunjucks_version,
@@ -43,7 +68,7 @@ func main() {
 	router.GET("/oob-response", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
-			"index.html.tmpl",
+			"oob-response.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
 				"nunjucks_version":  nunjucks_version,
@@ -54,7 +79,7 @@ func main() {
 	router.GET("/trigger-events", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
-			"index.html.tmpl",
+			"trigger-events.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
 				"nunjucks_version":  nunjucks_version,
@@ -65,7 +90,7 @@ func main() {
 	router.GET("/path-deps", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
-			"index.html.tmpl",
+			"path-deps.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
 				"nunjucks_version":  nunjucks_version,
@@ -74,14 +99,18 @@ func main() {
 		)
 	})
 
-
 	router.POST("/contacts", func(c *gin.Context) {
-		data_type := c.Params.ByName("data_type")
-		c.JSON(http.StatusOK, gin.H{"message": data_type})
+		var newContact Contact
+
+		if err := c.Bind(&newContact); err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+		}
+		contacts = append(contacts, newContact)
+		c.JSON(http.StatusOK, contacts)
 	})
 
 	router.GET("/contacts", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "post path1"})
+		c.JSON(http.StatusOK, contacts)
 	})
 
 	router.Run(":8080")
