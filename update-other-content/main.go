@@ -106,6 +106,7 @@ func main() {
 			c.AbortWithError(http.StatusBadRequest, err)
 		}
 		contacts = append(contacts, newContact)
+		c.Header("HX-Trigger", "newContact")
 		c.JSON(http.StatusOK, contacts)
 	})
 
