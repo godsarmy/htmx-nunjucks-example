@@ -8,6 +8,7 @@
 
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/path-deps.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/json-enc.js"></script>
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
     <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
 
@@ -18,34 +19,61 @@
 
   <body>
     <div class="container" hx-ext="path-deps,client-side-templates">
-      <a href="https://htmx.org/extensions/path-deps/" class="link-primary">htmx path deps extension example</a>
+      <a href="https://htmx.org/examples/update-other-content/#path-deps" class="link-primary">htmx update other content example</a>
       <p>
 
-      <button class="btn btn-primary"
-              hx-post="/data/foo"
-              hx-target="#show"
-              nunjucks-template="data-template">
-      Post data
-      </button>
-      <div id="show"></div>
-      <p>
-      <div hx-post="/path1"
-           hx-trigger="path-deps"
-           path-deps="/data/*"
-           nunjucks-template="path-template">...</div>
-      <p>
-      <div hx-get="/path2"
-           hx-trigger="path-deps"
-           path-deps="/path1"
-           nunjucks-template="path-template">...</div>
+      <h2>Contacts</h2>
+      <table class="table"
+             hx-get="/contacts"
+             hx-trigger="load,path-deps"
+             hx-ext="path-deps"
+             path-deps="/contacts"
+             hx-target="#contacts-tbody"
+             nunjucks-array-template="contacts-load-template">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody id="contacts-tbody">
+        </tbody>
+      </table>
+      <h2>Add A Contact</h2>
+      <form id="submit-form"
+            hx-post="/contacts"
+            hx-ext="json-enc"
+            nunjucks-array-template="contacts-submit-template">
+        <label>
+          Name
+          <input name="name" type="text">  
+        </label>
+        <label>
+          Email
+          <input name="email" type="email">  
+        </label>
+        <button class="btn btn-primary">Add</button>
+      </form>
 
-
-      <script id="data-template" type="x-tmpl-nunjucks">
-        Data: {{ message }}
+      <script id="contacts-load-template" type="x-tmpl-nunjucks">
+        {% for contact in data %}
+        <tr>
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.email }}</td>
+        </tr>
+        {% endfor %}
       </script>
 
-      <script id="path-template" type="x-tmpl-nunjucks">
-        Path: {{ message }}
+      <script id="contacts-submit-template" type="x-tmpl-nunjucks">
+        <label>
+          Name
+          <input name="name" type="text">  
+        </label>
+        <label>
+          Email
+          <input name="email" type="email">  
+        </label>
+        <button class="btn btn-primary">Add</button>
       </script>
 
     </div>

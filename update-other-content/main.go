@@ -17,8 +17,8 @@ var bootstrap_version = "latest"
 var embed_fs embed.FS
 
 type Contact struct {
-	Name  string `json:"name" binding:"required"`
-	Email string `json:"email"     binding:"required"`
+	Name  string `json:"name"  binding:"required"`
+	Email string `json:"email" binding:"required"`
 }
 
 var contacts []Contact
