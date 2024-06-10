@@ -47,6 +47,7 @@ all: \
 	restored/main \
 	sortable/main \
 	tab/main \
+	update-other-content/main \
 	value-select/main \
 	websocket/main \
 	websocket-echo/main
