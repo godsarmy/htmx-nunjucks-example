@@ -45,6 +45,7 @@ all: \
 	progress-bar/main \
 	response-targets/main \
 	restored/main \
+	server-sent-events/main \
 	sortable/main \
 	tab/main \
 	update-other-content/main \

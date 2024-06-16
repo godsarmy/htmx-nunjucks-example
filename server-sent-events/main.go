@@ -2,11 +2,12 @@ package main
 
 import (
 	"embed"
+	"encoding/json"
 	"fmt"
 	"html/template"
-    "io"
+	"io"
 	"net/http"
-    "time"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,11 +21,11 @@ var embed_fs embed.FS
 var message chan string
 
 func main() {
-    message = make(chan string)
+	message = make(chan string)
 
-    go func() {
+	go func() {
 		for {
-			time.Sleep(time.Second * 10)
+			time.Sleep(time.Second)
 			now := time.Now().Format("2006-01-02 15:04:05")
 			currentTime := fmt.Sprintf("The Current Time Is %v", now)
 
@@ -51,10 +52,12 @@ func main() {
 	})
 
 	router.GET("/message", func(c *gin.Context) {
-        c.Stream(func(w io.Writer) bool {
+		c.Stream(func(w io.Writer) bool {
 			// Stream message to client from message channel
-			if msg, ok := <-message; ok {
-				c.SSEvent("message", msg)
+			if currentTime, ok := <-message; ok {
+			    data := map[string]string{"time": currentTime}
+			    msg, _ := json.Marshal(data)
+				c.SSEvent("message", string(msg))
 				return true
 			}
 			return false

@@ -4,10 +4,10 @@
   <head>
 
     <meta charset='UTF-8'>
-    <title>include vals</title>
+    <title>server sent events</title>
 
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
-    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/include-vals.js"></script>
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/sse.js"></script>
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
     <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
 
@@ -17,31 +17,21 @@
   </head>
 
   <body>
-    <div class="container" hx-ext="include-vals,client-side-templates">
-      <a href="https://htmx.org/extensions/include-vals/" class="link-primary">htmx include vals extension example</a>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://htmx.org/extensions/server-sent-events/" class="link-primary">htmx server sent events extension example</a>
       <p>
 
-      <button class="btn btn-primary"
-              hx-get="/test"
-              include-vals="included:true, computed: computeValue()"
-              hx-target="#show"
-              hx-trigger="click"
-              nunjucks-template="test-template">
-      submit include vals
-      </button>
+      <div hx-ext="sse"
+           sse-connect="/message"
+           sse-swap="message"
+           nunjucks-template="show-template">
+      Contents of this box will be updated in real time
+      with every SSE message received from the chatroom.
+      </div>
 
-      <div id="show"></div>
-
-      <script id="test-template" type="x-tmpl-nunjucks">
-        {{ message }}
+      <script id="show-template" type="x-tmpl-nunjucks">
+      {{ time }}
       </script>
-
-      <script type="text/javascript">
-        function computeValue() {
-            return window.location.href
-        }
-      </script>
-
     </div>
   </body>
 
