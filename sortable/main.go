@@ -60,6 +60,7 @@ func find_item(id int) *Item {
 	for _, item := range items {
 		if item.ID == id {
 			found = &item
+            break
 		}
 	}
 	return found
