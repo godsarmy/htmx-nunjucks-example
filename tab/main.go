@@ -46,6 +46,7 @@ func find_tab(tab_name string) *Tab {
 	for _, tab := range tabs {
 		if tab.Name == tab_name {
 			found = &tab
+            break
 		}
 	}
 	return found
