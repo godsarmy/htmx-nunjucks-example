@@ -7,9 +7,9 @@
     <title>response-targets</title>
 
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
-    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/response-targets.js"></script>
-    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
-    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/json-enc.js"></script>
+    <script src="https://unpkg.com/htmx-ext-client-side-templates@{[{ .htmx_version }]}/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx-ext-json-enc@{[{ .htmx_version }]}/json-enc.js"></script>
+    <script src="https://unpkg.com/htmx-ext-response-targets@{[{ .htmx_version }]}/response-targets.js"></script>
     <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
@@ -19,7 +19,7 @@
 
   <body>
     <div class="container" hx-boost="true" hx-ext="client-side-templates">
-      <a href="https://htmx.org/extensions/response-targets/" class="link-primary">htmx response targets extension example</a>
+      <a href="https://github.com/bigskysoftware/htmx-extensions/blob/main/src/response-targets/README.md" class="link-primary">htmx response targets extension example</a>
       <p>
       <h4>Non-integer renders critical error, negative integer renders not found error.</h4>
       <p></p>
