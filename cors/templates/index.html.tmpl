@@ -7,7 +7,7 @@
     <title>cors</title>
 
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
-    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx-ext-client-side-templates@{[{ .htmx_version }]}/client-side-templates.js"></script>
     <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
@@ -19,11 +19,14 @@
       }
     </style>
 
+    <meta name="htmx-config" content='{"selfRequestsOnly": false}'>
   </head>
 
   <body>
     <div class="container" hx-ext="client-side-templates">
       <a href="https://htmx.org/essays/web-security-basics-with-htmx/" class="link-primary">htmx cors description</a>
+      <p>
+      <a href="https://htmx.org/migration-guide-htmx-1/" class="link-primary">htmx cors update from 1.x to 2.x</a>
       <p>
 
       <button class="btn btn-primary"
