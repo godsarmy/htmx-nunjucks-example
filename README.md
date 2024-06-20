@@ -4,7 +4,7 @@
 
 Provide [htmx](https://htmx.org) examples applied in restAPI and [nunjucks](https://mozilla.github.io/nunjucks) template.
 
-[Official HTMX Examples](https://htmx.org/examples/) are implemented with hypermedia calls. In this project, these examples are reimplemented with pure JSON based restAPI calls with the help of htmx [client side template](https://htmx.org/extensions/client-side-templates/). This project also includes some examples for [htmx extensions](https://htmx.org/extensions/).
+[Official HTMX Examples](https://htmx.org/examples/) are implemented with hypermedia calls. In this project, these examples are reimplemented with pure JSON based restAPI calls with the help of htmx [client side template](https://github.com/bigskysoftware/htmx-extensions/blob/main/src/client-side-templates/README.md). This project also includes some examples for [htmx extensions](https://extensions.htmx.org/).
 Backend code is implemented by Golang [Gin framework](https://gin-gonic.com) for easy execution and simplicity.
 
 ## Why?
