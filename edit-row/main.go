@@ -58,9 +58,9 @@ func init_db() {
 
 func find_contact(id int) *Contact {
 	var found *Contact
-	for _, contact := range contacts {
-		if contact.ID == id {
-			found = &contact
+	for index, _ := range contacts {
+		if contacts[index].ID == id {
+			found = &contacts[index]
 		}
 	}
 	return found
