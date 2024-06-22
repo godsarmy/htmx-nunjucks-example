@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>json enc custom</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx-ext-client-side-templates@{[{ .htmx_version }]}/client-side-templates.js"></script>
+    <script src="script/json-enc-custom.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+      .hiddenRow {
+        padding: 0 !important;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://github.com/Emtyloc/json-enc-custom" class="link-primary">htmx json enc custom example</a>
+      <p>
+
+      <h3>Example 1</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input name="name" value="Bender">
+        <select name="hind">
+          <option selected>Bitable</option>
+          <option>Kickable</option>
+        </select>
+        <input type="checkbox" name="shiny" checked>
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <h3>Example 2</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input type="number" name="bottle-on-wall" value="1">
+        <input type="number" name="bottle-on-wall" value="2">
+        <input type="number" name="bottle-on-wall" value="3">
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <h3>Example 3</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input name="pet[species]" value="Dahut">
+        <input name="pet[name]" value="Hypatia">
+        <input name="kids[1]" value="Thelma">
+        <input name="kids[0]" value="Ashley">
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <h3>Example 4</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input name="hearbeat[0]" value="thunk">
+        <input name="hearbeat[2]" value="thunk">
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <h3>Example 5</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input name="pet[0][species]" value="Dahut">
+        <input name="pet[0][name]" value="Hypatia">
+        <input name="pet[1][species]" value="Felis Stultus">
+        <input name="pet[1][name]" value="Billie">
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <h3>Example 6</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input name="wow[such][deep][3][much][power][!]" value="Amaze">
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <h3>Example 10</h3>
+      <form hx-post="/data"
+            hx-target="#display"
+            hx-ext="json-enc-custom"
+            nunjucks-template="show-template">
+        <input name="error[good]" value="BOOM!">
+        <input name="error[bad" value="BOOM BOOM!">
+        <button class="btn btn-primary">submit</button>
+      </form>
+
+      <div class="mb-3">
+        <label for="display" class="form-label">You posted</label>
+        <textarea class="form-control" id="display" rows="3"></textarea>
+      </div>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        {{ data }}
+      </script>
+    </div>
+  </body>
+
+</html>

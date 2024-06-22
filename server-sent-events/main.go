@@ -55,8 +55,8 @@ func main() {
 		c.Stream(func(w io.Writer) bool {
 			// Stream message to client from message channel
 			if currentTime, ok := <-message; ok {
-			    data := map[string]string{"time": currentTime}
-			    msg, _ := json.Marshal(data)
+				data := map[string]string{"time": currentTime}
+				msg, _ := json.Marshal(data)
 				c.SSEvent("message", string(msg))
 				return true
 			}

@@ -35,6 +35,7 @@ all: \
 	infinite-scroll/main \
 	inline-validation/main \
 	keyboard-shortcuts/main \
+	json-enc-custom/main \
 	lazy-load/main \
 	loading-states/main \
 	modal-bootstrap/main \
