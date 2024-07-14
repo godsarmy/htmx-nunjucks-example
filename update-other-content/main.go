@@ -10,6 +10,7 @@ import (
 )
 
 var htmx_version = "latest"
+var htmx_ext_version = "latest"
 var nunjucks_version = "3.2.4"
 var bootstrap_version = "latest"
 
@@ -60,6 +61,7 @@ func main() {
 			"expand-target.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
+				"htmx_ext_version":  htmx_ext_version,
 				"nunjucks_version":  nunjucks_version,
 				"bootstrap_version": bootstrap_version,
 			},
@@ -71,6 +73,7 @@ func main() {
 			"oob-response.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
+				"htmx_ext_version":  htmx_ext_version,
 				"nunjucks_version":  nunjucks_version,
 				"bootstrap_version": bootstrap_version,
 			},
@@ -82,6 +85,7 @@ func main() {
 			"trigger-events.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
+				"htmx_ext_version":  htmx_ext_version,
 				"nunjucks_version":  nunjucks_version,
 				"bootstrap_version": bootstrap_version,
 			},
@@ -93,6 +97,7 @@ func main() {
 			"path-deps.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
+				"htmx_ext_version":  htmx_ext_version,
 				"nunjucks_version":  nunjucks_version,
 				"bootstrap_version": bootstrap_version,
 			},

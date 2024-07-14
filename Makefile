@@ -4,9 +4,11 @@ GO ?= go
 HTMX_VERSION ?= $(shell cat ./HTMX_VERSION)
 NUNJUCKS_VERSION ?= $(shell cat ./NUNJUCKS_VERSION)
 BOOTSTRAP_VERSION ?= $(shell cat ./BOOTSTRAP_VERSION)
+HTMX_EXT_VERSION ?= $(shell cat ./HTMX_EXT_VERSION)
 
 LDFLAGS_COMMON = \
 	-X main.htmx_version=$(HTMX_VERSION) \
+	-x main.htmx_ext_version=$(HTMX_EXT_VERSION) \
 	-X main.nunjucks_version=$(NUNJUCKS_VERSION) \
 	-X main.bootstrap_version=$(BOOTSTRAP_VERSION)
 

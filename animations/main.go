@@ -9,6 +9,7 @@ import (
 )
 
 var htmx_version = "latest"
+var htmx_ext_version = "latest"
 var nunjucks_version = "3.2.4"
 var bootstrap_version = "latest"
 
@@ -32,6 +33,7 @@ func main() {
 			"index.html.tmpl",
 			gin.H{
 				"htmx_version":      htmx_version,
+				"htmx_ext_version":  htmx_ext_version,
 				"nunjucks_version":  nunjucks_version,
 				"bootstrap_version": bootstrap_version,
 			},
