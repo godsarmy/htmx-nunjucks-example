@@ -8,7 +8,7 @@ HTMX_EXT_VERSION ?= $(shell cat ./HTMX_EXT_VERSION)
 
 LDFLAGS_COMMON = \
 	-X main.htmx_version=$(HTMX_VERSION) \
-	-x main.htmx_ext_version=$(HTMX_EXT_VERSION) \
+	-X main.htmx_ext_version=$(HTMX_EXT_VERSION) \
 	-X main.nunjucks_version=$(NUNJUCKS_VERSION) \
 	-X main.bootstrap_version=$(BOOTSTRAP_VERSION)
 
