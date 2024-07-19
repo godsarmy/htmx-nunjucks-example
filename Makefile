@@ -33,6 +33,7 @@ all: \
 	dialogs/main \
 	edit-row/main \
 	file-upload/main \
+	head-support/main \
 	include-vals/main \
 	infinite-scroll/main \
 	inline-validation/main \

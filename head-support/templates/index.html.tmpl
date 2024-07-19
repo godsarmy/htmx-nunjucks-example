@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>head support</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx-ext-head-support@latest/head-support.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+  </head>
+
+  <body hx-ext="head-support">
+    <div class="container">
+      <h3>head support extension does not support client template</h3>
+      <a href="https://github.com/bigskysoftware/htmx-extensions/blob/main/src/head-support/README.md" class="link-primary">htmx head support extension example</a>
+      <form hx-get="/head"
+            hx-target="#dummy">
+        <button class="btn btn-primary">apply bootstrap</button>
+      </form>
+      <div id="dummy"></div>
+    </div>
+  </body>
+
+</html>
