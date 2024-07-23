@@ -21,3 +21,4 @@ Due to various reason, it is not alway easy to convert JSON restAPIs into hyperm
 
 * [Handle Json API Results in htmx](https://marcus-obst.de/blog/htmx-json-handling)
 * [Creating a Spaceflight News Blog with HTMX & JSON API](https://jerrynsh.com/creating-a-spaceflight-news-blog-with-htmx-and-json-api)
+* [Let's Go Backend-Free! Discover How HTMX & Nunjucks Are Changing the Game!](https://www.youtube.com/watch?v=6d0qeM-kQrM)
