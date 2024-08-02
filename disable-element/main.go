@@ -4,7 +4,7 @@ import (
 	"embed"
 	"html/template"
 	"net/http"
-    "time"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
