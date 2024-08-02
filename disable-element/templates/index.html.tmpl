@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>disable-element</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx-ext-client-side-templates@{[{ .htmx_ext_version }]}/client-side-templates.js"></script>
+    <script src="https://unpkg.com/htmx-ext-disable-element@latest/disable-element.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@{[{ .bootstrap_version }]}/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body hx-ext="debug">
+    <div class="container" hx-ext="client-side-templates">
+      <a href="https://github.com/bigskysoftware/htmx-extensions/blob/main/src/disable-element/README.md" class="link-primary">htmx disable element extension example</a>
+      <p>
+      <button class="btn btn-primary"
+              hx-get="/whatever"
+              hx-ext="disable-element"
+              hx-disable-element="self"
+              hx-target="#show"
+              nunjucks-template="show-template">
+      Click Me to disable
+      </button>
+
+      <button class="btn btn-primary"
+              hx-get="/whatever"
+              hx-ext="disable-element"
+              hx-disable-element="#to-disable"
+              hx-target="#show"
+              nunjucks-template="show-template">
+      Click Me to disable sibling
+      </button>
+      <button class="btn btn-primary" id="to-disable">Watch me being disabled</button>
+
+      <p>
+      <div id="show"></div>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        <div class="text-success">{{ message }}</div>
+      </script>
+
+    </div>
+  </body>
+
+</html>
