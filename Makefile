@@ -31,7 +31,7 @@ all: \
 	debug/main \
 	delete-row/main	\
 	dialogs/main \
-	disabled-element/main \
+	disable-element/main \
 	edit-row/main \
 	file-upload/main \
 	head-support/main \
