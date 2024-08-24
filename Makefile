@@ -51,6 +51,7 @@ all: \
 	response-targets/main \
 	restored/main \
 	server-sent-events/main \
+	shoelace/main \
 	sortable/main \
 	tab/main \
 	update-other-content/main \

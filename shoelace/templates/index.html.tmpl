@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+  <head>
+
+    <meta charset='UTF-8'>
+    <title>debug</title>
+
+    <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
+    <script src="https://unpkg.com/htmx-ext-client-side-templates@{[{ .htmx_ext_version }]}/client-side-templates.js"></script>
+    <script src="script/htmx.ext.shoelace.js"></script>
+    <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.16.0/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.16.0/cdn/shoelace-autoloader.js"></script>
+  </head>
+
+  <body hx-ext="shoelace">
+    <div class="container" hx-boost="true" hx-ext="client-side-templates">
+      <a href="https://github.com/benopotamus/htmx-ext-shoelace/blob/main/README.md">htmx shoelace extension example</a>
+      <p>
+      <h3>Shoelace web component integration with HTMX</h3>
+      <sl-button class="btn btn-primary"
+              hx-target="#show"
+              hx-get="/get_example"
+              hx-trigger="click"
+              nunjucks-template="show-template">
+      Click me
+      </sl-button>
+
+      <p>
+      <sl-alert id="show" variant="primary" open></sl-alert>
+
+      <script id="show-template" type="x-tmpl-nunjucks">
+        <sl-icon slot="icon" name="info-circle"></sl-icon>{{ message }}</sl-icon>
+      </script>
+
+    </div>
+  </body>
+
+</html>
