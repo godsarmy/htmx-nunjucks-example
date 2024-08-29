@@ -4,15 +4,16 @@
   <head>
 
     <meta charset='UTF-8'>
-    <title>debug</title>
+    <title>shoelace</title>
 
     <script src="https://unpkg.com/htmx.org@{[{ .htmx_version }]}"></script>
     <script src="https://unpkg.com/htmx-ext-client-side-templates@{[{ .htmx_ext_version }]}/client-side-templates.js"></script>
-    <script src="script/htmx.ext.shoelace.js"></script>
+    <script src="https://unpkg.com/htmx-ext-json-enc@latest/json-enc.js"></script>
     <script src="https://unpkg.com/nunjucks@{[{ .nunjucks_version }]}/browser/nunjucks.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.16.0/cdn/themes/light.css" />
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.16.0/cdn/shoelace-autoloader.js"></script>
+    <script src="script/htmx.ext.shoelace.js"></script>
   </head>
 
   <body hx-ext="shoelace">
@@ -21,20 +22,36 @@
       <p>
       <h3>Shoelace web component integration with HTMX</h3>
       <sl-button class="btn btn-primary"
-              hx-target="#show"
-              hx-get="/get_example"
-              hx-trigger="click"
-              nunjucks-template="show-template">
+                 hx-target="#show"
+                 hx-get="/get_example"
+                 hx-trigger="click"
+                 nunjucks-template="show-template">
       Click me
       </sl-button>
 
       <p>
       <sl-alert id="show" variant="primary" open></sl-alert>
+      <p>
+
+      <form hx-get="/rating"
+           hx-trigger="load"
+           nunjucks-template="rate-template">
+      </form>
+
 
       <script id="show-template" type="x-tmpl-nunjucks">
         <sl-icon slot="icon" name="info-circle"></sl-icon>{{ message }}</sl-icon>
       </script>
 
+      <script id="rate-template" type="x-tmpl-nunjucks">
+        <sl-rating name="value"
+                   hx-post="/rating"
+                   hx-trigger="click"
+                   hx-swap="outerHTML"
+                   hx-ext="json-enc"
+                   value="{{value}}">
+        ></sl-rating>
+      </script>
     </div>
   </body>
 

@@ -17,6 +17,10 @@ var bootstrap_version = "latest"
 //go:embed templates/* script/*
 var embed_fs embed.FS
 
+type Rating struct {
+	Value string `json:"value" binding:"required"`
+}
+
 func main() {
 
 	router := gin.Default()
@@ -42,6 +46,19 @@ func main() {
 
 	router.GET("/get_example", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "shoelace example"})
+	})
+
+	var my_rating Rating = Rating{Value: "3"}
+	router.GET("/rating", func(c *gin.Context) {
+		c.JSON(http.StatusOK, my_rating)
+	})
+	router.POST("/rating", func(c *gin.Context) {
+		var rating Rating
+		if err := c.Bind(&rating); err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+		}
+		my_rating.Value = rating.Value
+		c.JSON(http.StatusOK, my_rating)
 	})
 
 	router.Run(":8080")

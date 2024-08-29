@@ -24,22 +24,8 @@ function shouldInclude(elt) {
 
 htmx.defineExtension('shoelace', {
 	onEvent : function(name, evt) {
-		if ((name === "htmx:configRequest") && (evt.detail.elt.tagName === 'FORM')) {
-			evt.detail.elt.querySelectorAll(slTypes).forEach((elt) => {
-				if (shouldInclude(elt)) {
-					if (elt.tagName == 'SL-RATING') {
-						evt.detail.parameters[elt.getAttribute('name')] = elt.value
-
-					} else {
-						evt.detail.parameters[elt.name] = elt.value
-					}
-				}
-			})
-			// Prevent form submission if one or more fields are invalid. 
-			// evt.detail.elt is always a form as per the main if statement
-			if (!evt.detail.elt.checkValidity()) {
-				return false
-			}
+		if ((name === "htmx:configRequest") && (evt.detail.elt.tagName === 'SL-RATING')) {
+		    evt.detail.parameters[evt.detail.elt.getAttribute('name')] = evt.detail.elt.value
 		}
 	}
 })
